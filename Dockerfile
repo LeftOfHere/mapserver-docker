@@ -1,4 +1,4 @@
-FROM debian:buster as builder
+FROM debian:stable-slim as builder
 LABEL maintainer="PDOK dev <https://github.com/PDOK/mapserver-docker/issues>"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -118,7 +118,7 @@ RUN mkdir /usr/local/src/mapserver/build && \
     make install && \
     ldconfig
 
-FROM pdok/lighttpd:1.4.53-buster as service
+FROM --platform=linux/amd64 lighttpd as service
 LABEL maintainer="PDOK dev <https://github.com/PDOK/mapserver-docker/issues>"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -136,17 +136,17 @@ RUN apt-get -y update && \
         libjpeg62-turbo \
         libfcgi0ldbl \
         libfribidi0 \
-        libgdal20 \
+        libgdal28 \
         libgeos-c1v5 \
         libglib2.0-0 \
-        libproj13 \
+        libproj19 \
         libxml2 \
         libxslt1.1 \
         libexempi8 \
         libpq5 \
         libfreetype6 \
         librsvg2-2 \
-        libprotobuf17 \
+        libprotobuf23 \
         libprotobuf-c1 \
         gettext-base \
         wget \
